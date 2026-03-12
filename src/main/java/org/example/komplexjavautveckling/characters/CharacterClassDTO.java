@@ -1,4 +1,4 @@
-package org.example.komplexjavautveckling.dto;
+package org.example.komplexjavautveckling.characters;
 
 public class CharacterClassDTO {
     private String name;

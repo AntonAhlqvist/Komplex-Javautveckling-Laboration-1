@@ -1,7 +1,5 @@
-package org.example.komplexjavautveckling.mapper;
+package org.example.komplexjavautveckling.characters;
 
-import org.example.komplexjavautveckling.dto.CreateCharacterDTO;
-import org.example.komplexjavautveckling.entity.Character;
 import org.springframework.stereotype.Component;
 
 @Component

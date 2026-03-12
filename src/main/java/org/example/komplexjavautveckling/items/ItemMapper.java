@@ -1,7 +1,5 @@
-package org.example.komplexjavautveckling.mapper;
+package org.example.komplexjavautveckling.items;
 
-import org.example.komplexjavautveckling.dto.*;
-import org.example.komplexjavautveckling.entity.Item;
 import org.springframework.stereotype.Component;
 
 @Component

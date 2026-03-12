@@ -1,8 +1,5 @@
-package org.example.komplexjavautveckling.service;
+package org.example.komplexjavautveckling.characters;
 
-import org.example.komplexjavautveckling.dto.CreateCharacterDTO;
-import org.example.komplexjavautveckling.entity.Character;
-import org.example.komplexjavautveckling.repository.CharacterRepository;
 import org.springframework.stereotype.Service;
 
 @Service

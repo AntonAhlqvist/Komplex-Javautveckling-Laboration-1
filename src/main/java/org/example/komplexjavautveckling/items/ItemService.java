@@ -1,10 +1,5 @@
-package org.example.komplexjavautveckling.service;
+package org.example.komplexjavautveckling.items;
 
-import org.example.komplexjavautveckling.dto.CreateItemDTO;
-import org.example.komplexjavautveckling.dto.ItemDTO;
-import org.example.komplexjavautveckling.entity.Item;
-import org.example.komplexjavautveckling.mapper.ItemMapper;
-import org.example.komplexjavautveckling.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
 @Service

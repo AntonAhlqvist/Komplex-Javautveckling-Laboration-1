@@ -1,4 +1,4 @@
-package org.example.komplexjavautveckling.dto;
+package org.example.komplexjavautveckling.items;
 
 public class UpdateItemDTO {
 

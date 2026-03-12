@@ -1,8 +1,5 @@
-package org.example.komplexjavautveckling.controller;
+package org.example.komplexjavautveckling.items;
 
-import org.example.komplexjavautveckling.dto.CreateItemDTO;
-import org.example.komplexjavautveckling.dto.ItemDTO;
-import org.example.komplexjavautveckling.service.ItemService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

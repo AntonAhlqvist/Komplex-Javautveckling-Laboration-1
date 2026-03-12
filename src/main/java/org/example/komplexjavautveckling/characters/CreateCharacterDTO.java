@@ -1,9 +1,7 @@
-package org.example.komplexjavautveckling.dto;
+package org.example.komplexjavautveckling.characters;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
-import org.example.komplexjavautveckling.entity.CharacterClass;
 
 public class CreateCharacterDTO {
 

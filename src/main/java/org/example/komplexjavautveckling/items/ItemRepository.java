@@ -1,6 +1,5 @@
-package org.example.komplexjavautveckling.repository;
+package org.example.komplexjavautveckling.items;
 
-import org.example.komplexjavautveckling.entity.Item;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;

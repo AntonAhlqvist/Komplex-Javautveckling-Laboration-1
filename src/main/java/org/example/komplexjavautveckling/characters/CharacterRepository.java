@@ -1,7 +1,5 @@
-package org.example.komplexjavautveckling.repository;
+package org.example.komplexjavautveckling.characters;
 
-import org.example.komplexjavautveckling.entity.Character;
-import org.example.komplexjavautveckling.entity.CharacterClass;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
