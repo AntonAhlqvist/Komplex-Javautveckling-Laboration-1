@@ -2,6 +2,9 @@ package org.example.komplexjavautveckling.characters;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CharacterService {
 
@@ -16,5 +19,17 @@ public class CharacterService {
         );
 
         return repository.save(character);
+    }
+
+    public List<CharacterClassDTO> getClasses() {
+        List<CharacterClassDTO> dtos = new ArrayList<>();
+        for (CharacterClass cc : CharacterClass.values()) {
+            dtos.add(new CharacterClassDTO(
+                    cc.name(),
+                    cc.getDisplayName(),
+                    cc.getStartingPesetas()
+            ));
+        }
+        return dtos;
     }
 }
