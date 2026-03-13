@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Character</title>
+</head>
+<body>
+
+<h1>Create Your Character</h1>
+
+<form th:action="@{/characters/create}" th:object="${character}" method="post">
+
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter name" required><br><br>
+
+    <p>Choose your class:</p>
+    <div th:each="c : ${classes}">
+        <input type="radio" th:field="*{characterClass}" th:value="${c.name}" id="${c.name}" required>
+        <label th:for="${c.name}" th:text="${c.displayName}"></label><br>
+    </div>
+
+    <br>
+    <button type="submit">Create Character</button>
+
+</form>
+
+</body>
+</html>
