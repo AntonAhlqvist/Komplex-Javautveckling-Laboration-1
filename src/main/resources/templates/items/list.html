@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Föremål</title>
+</head>
+<body>
+
+<h1>Alla föremål</h1>
+
+<a th:href="@{/items/new}">Skapa nytt föremål</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Namn</th>
+        <th>Typ</th>
+        <th>Skada</th>
+        <th>Vikt</th>
+        <th>Pris</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.type.displayName}"></td>
+        <td th:text="${item.damage}"></td>
+        <td th:text="${item.weight}"></td>
+        <td th:text="${item.price}"></td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>
