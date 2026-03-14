@@ -2,13 +2,13 @@ package org.example.komplexjavautveckling.items.enums;
 
 public enum ItemType {
 
-    SWORD("Sword"),
-    DAGGER("Dagger"),
-    BOW("Bow"),
-    STAFF("Staff"),
-    POTION("Potion"),
-    JEWELRY("Jewelry"),
-    ARMOR("Armor");
+    SWORD("Svärd"),
+    DAGGER("Dolk"),
+    STAFF("Stav"),
+    BOW("Pilbåge"),
+    ARMOR("Rustning"),
+    JEWELRY("Smycke"),
+    POTION("Dryck");
 
     private final String displayName;
 
