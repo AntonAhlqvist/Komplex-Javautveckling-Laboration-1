@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Skapa föremål</title>
+</head>
+<body>
+
+<h1>Skapa föremål</h1>
+
+<form th:action="@{/items}" th:object="${createItemDTO}" method="post">
+
+    <label>Namn:</label>
+    <input type="text" th:field="*{name}" />
+    <br>
+
+    <label>Typ:</label>
+    <select th:field="*{type}">
+        <option th:each="t : ${weaponTypes}"
+                th:value="${t}"
+                th:text="${t.displayName}">
+        </option>
+    </select>
+    <br>
+
+    <label>Skada:</label>
+    <input type="text" th:field="*{damage}" />
+    <br>
+
+    <label>Vikt:</label>
+    <input type="text" th:field="*{weight}" />
+    <br><br>
+
+    <button type="submit">Skapa</button>
+
+</form>
+
+</body>
+</html>
