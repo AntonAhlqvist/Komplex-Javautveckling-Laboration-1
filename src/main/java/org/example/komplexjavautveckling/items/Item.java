@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
+import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 
 import java.time.LocalDate;
@@ -34,16 +35,33 @@ public class Item {
 
     private LocalDate createdDate;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ItemStatus status;
+
+    @Column(nullable = false)
+    private boolean createdByUser = false;
+
     public Item() {
     }
 
-    public Item(String name, ItemType type, int damage, double weight, int price, LocalDate createdDate) {
+    public Item(String name,
+                ItemType type,
+                int damage,
+                double weight,
+                int price,
+                LocalDate createdDate,
+                ItemStatus status,
+                boolean createdByUser) {
+
         this.name = name;
         this.type = type;
         this.damage = damage;
         this.weight = weight;
         this.price = price;
         this.createdDate = createdDate;
+        this.status = status;
+        this.createdByUser = createdByUser;
     }
 
     public Long getId() { return id; }
@@ -93,4 +111,12 @@ public class Item {
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
+
+    public ItemStatus getStatus() { return status; }
+
+    public void setStatus(ItemStatus status) { this.status = status; }
+
+    public boolean isCreatedByUser() { return createdByUser; }
+
+    public void setCreatedByUser(boolean createdByUser) { this.createdByUser = createdByUser; }
 }
