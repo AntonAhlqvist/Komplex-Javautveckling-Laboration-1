@@ -1,7 +1,12 @@
 package org.example.komplexjavautveckling.items;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import org.example.komplexjavautveckling.items.enums.ItemType;
+
 import java.time.LocalDate;
 
 @Entity
@@ -14,20 +19,30 @@ public class Item {
     @NotBlank(message = "Namn krävs")
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Föremålstyp krävs")
+    private ItemType type;
+
+    @PositiveOrZero(message = "Skada måste vara positiv eller noll")
+    private int damage;
+
+    @Positive(message = "Vikt måste vara positiv")
+    private double weight;
+
     @PositiveOrZero
     private int price;
 
-    @NotBlank
-    private String type;
-
     private LocalDate createdDate;
 
-    public Item() {}
+    public Item() {
+    }
 
-    public Item(String name, int price, String type, LocalDate createdDate) {
+    public Item(String name, ItemType type, int damage, double weight, int price, LocalDate createdDate) {
         this.name = name;
-        this.price = price;
         this.type = type;
+        this.damage = damage;
+        this.weight = weight;
+        this.price = price;
         this.createdDate = createdDate;
     }
 
@@ -35,17 +50,47 @@ public class Item {
 
     public String getName() { return name; }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public int getPrice() { return price; }
+    public ItemType getType() {
+        return type;
+    }
 
-    public void setPrice(int price) { this.price = price; }
+    public void setType(ItemType type) {
+        this.type = type;
+    }
 
-    public String getType() { return type; }
+    public int getDamage() {
+        return damage;
+    }
 
-    public void setType(String type) { this.type = type; }
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
 
-    public LocalDate getCreatedDate() { return createdDate; }
+    public double getWeight() {
+        return weight;
+    }
 
-    public void setCreatedDate(LocalDate createdDate) { this.createdDate = createdDate; }
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
 }
