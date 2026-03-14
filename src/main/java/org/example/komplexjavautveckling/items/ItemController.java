@@ -1,8 +1,13 @@
 package org.example.komplexjavautveckling.items;
 
+import jakarta.validation.Valid;
+import org.example.komplexjavautveckling.items.dto.CreateItemDTO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/items")
 public class ItemController {
 
@@ -12,8 +17,28 @@ public class ItemController {
         this.service = service;
     }
 
+    @GetMapping
+    public String listItems(Model model) {
+        model.addAttribute("items", service.getAllItems());
+        return "items/list";
+    }
+
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("createItemDTO", new CreateItemDTO());
+        return "items/create";
+    }
+
     @PostMapping
-    public ItemDTO createItem(@RequestBody CreateItemDTO dto) {
-        return service.createItem(dto);
+    public String createItem(@Valid @ModelAttribute("createItemDTO") CreateItemDTO dto,
+                             BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "items/create";
+        }
+
+        service.createItem(dto);
+
+        return "redirect:/items";
     }
 }
