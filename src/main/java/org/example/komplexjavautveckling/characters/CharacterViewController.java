@@ -15,6 +15,11 @@ public class CharacterViewController {
         this.characterService = characterService;
     }
 
+    @GetMapping("/")
+    public String redirectToCreate() {
+        return "redirect:/characters/create";
+    }
+
     @GetMapping("/characters/create")
     public String showCreateForm(Model model) {
         model.addAttribute("character", new CreateCharacterDTO());
@@ -25,7 +30,7 @@ public class CharacterViewController {
     @PostMapping("/characters/create")
     public String createCharacter(@ModelAttribute CreateCharacterDTO characterDto) {
         characterService.createCharacter(characterDto);
-        return "redirect:/characters/next-step";
+        return "redirect:/items/new";
     }
 
     @GetMapping("/characters/next-step")
