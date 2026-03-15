@@ -1,5 +1,6 @@
 package org.example.komplexjavautveckling.items;
 
+import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -10,4 +11,6 @@ public interface ItemRepository extends ListCrudRepository<Item, Long> {
     List<Item> findByType(ItemType type);
 
     List<Item> findByNameContainingIgnoreCase(String name);
+
+    List<Item> findByStatus(ItemStatus status);
 }
