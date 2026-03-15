@@ -2,13 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Skapa föremål</title>
+    <title>Smedjan</title>
 </head>
 <body>
 
-<h1>Skapa föremål</h1>
+<h1>Välkommen till smedjan</h1>
 
-<form th:action="@{/items}" th:object="${createItemDTO}" method="post">
+<h2>Skapa nytt vapen</h2>
+
+<form th:action="@{/items/new}"
+      th:object="${createItemDTO}"
+      method="post">
 
     <label>Namn:</label>
     <input type="text" th:field="*{name}" />
@@ -24,19 +28,70 @@
     <br>
 
     <label>Skada:</label>
-    <input type="text" th:field="*{damage}" />
+    <input type="number" th:field="*{damage}" />
     <br>
 
     <label>Vikt:</label>
-    <input type="text" th:field="*{weight}" />
+    <input type="number" step="0.1" th:field="*{weight}" />
     <br><br>
 
     <button type="submit">Skapa</button>
-    <a th:href="@{/characters/create}">
-        <button type="button">Tillbaka till karaktärsskaparen</button>
-    </a>
 
 </form>
+
+<hr>
+
+<h2>Dina skapade vapen</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Namn</th>
+        <th>Typ</th>
+        <th>Skada</th>
+        <th>Vikt</th>
+        <th>Pris</th>
+        <th>Åtgärder</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="item : ${items}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.type.displayName}"></td>
+        <td th:text="${item.damage}"></td>
+        <td th:text="${item.weight}"></td>
+        <td th:text="${item.price}"></td>
+
+        <td>
+            <a th:href="@{/items/edit/{id}(id=${item.id})}">
+                Uppdatera
+            </a>
+            |
+            <a th:href="@{/items/delete/{id}(id=${item.id})}"
+               onclick="return confirm('Vill du verkligen ta bort detta föremål?');">
+                Ta bort
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br><br>
+
+<a th:href="@{/items}">
+    <button type="button">
+        Skeppa dina skapade föremål till affären
+    </button>
+</a>
+
+<br><br>
+
+<a th:href="@{/characters/create}">
+    <button type="button">
+        Tillbaka till karaktärsskaparen
+    </button>
+</a>
 
 </body>
 </html>
