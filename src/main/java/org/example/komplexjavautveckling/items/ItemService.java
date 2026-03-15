@@ -3,7 +3,7 @@ package org.example.komplexjavautveckling.items;
 import org.example.komplexjavautveckling.items.dto.CreateItemDTO;
 import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
-import org.hibernate.sql.Update;
+import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +39,9 @@ public class ItemService {
 
         Item item = mapper.toEntity(dto);
 
+        item.setStatus(ItemStatus.FORGE);
+        item.setCreatedByUser(true);
+
         int price = calculatePrice(item.getDamage());
         item.setPrice(price);
 
@@ -62,11 +65,23 @@ public class ItemService {
         return mapper.toDTO(item);
     }
 
-    public List<ItemDTO> getAllItems() {
-        return repository.findAll()
+    public List<ItemDTO> getForgeItems() {
+        return repository.findByStatus(ItemStatus.FORGE)
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
+    }
+
+    public List<ItemDTO> getShopItems() {
+        return repository.findByStatus(ItemStatus.SHOP)
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
+    public Item getEntityById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Föremålet hittades inte"));
     }
 
     public void deleteItem(Long id) {
