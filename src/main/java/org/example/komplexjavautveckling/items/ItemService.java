@@ -4,6 +4,7 @@ import org.example.komplexjavautveckling.items.dto.CreateItemDTO;
 import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
 import org.example.komplexjavautveckling.items.enums.ItemStatus;
+import org.example.komplexjavautveckling.items.enums.ItemType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,16 +13,21 @@ import java.util.List;
  * Service layer for managing items in the application.
  * <p>
  * This class contains the business logic for creating, updating,
- * retrieving, and deleting items.
+ * retrieving, searching, and deleting items.
  * <p>
- * Item creation follows the forge mechanic:
- * - Items are created from DTOs via the mapper.
- * - The price is calculated in the service layer based on damage.
- * - The entity is then persisted using the repository.
+ * Items are created through the forge and are restricted to
+ * allowed weapon types only. Each created item is assigned a
+ * status (FORGE or SHOP) to separate user-created items from
+ * shop items.
+ * <p>
+ * The price is calculated in the service layer based on damage.
  * <p>
  * The service ensures separation of concerns by:
+ * <p>
  * - Keeping business rules in this layer
- * - Delegating data conversion to the mapper
+ * <p>
+ * - Delegating entity mapping to the ItemMapper
+ * <p>
  * - Using the repository only for database access
  */
 @Service
@@ -36,6 +42,10 @@ public class ItemService {
     }
 
     public ItemDTO createItem(CreateItemDTO dto) {
+
+        if (!dto.getType().isForgeWeapon()) {
+            throw new IllegalArgumentException("Denna typ kan inte smidas i smedjan");
+        }
 
         Item item = mapper.toEntity(dto);
 
@@ -82,6 +92,15 @@ public class ItemService {
     public Item getEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Föremålet hittades inte"));
+    }
+
+    public List<ItemDTO> search(ItemType type) {
+
+        return repository.findAll()
+                .stream()
+                .filter(item -> type == null || item.getType() == type)
+                .map(mapper::toDTO)
+                .toList();
     }
 
     public void deleteItem(Long id) {
