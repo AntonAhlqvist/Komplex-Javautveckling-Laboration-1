@@ -1,5 +1,6 @@
 package org.example.komplexjavautveckling.items.dto;
 
+import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public class ItemDTO {
     private double weight;
     private int price;
     private LocalDate createdDate;
+    private ItemStatus status;
 
     public ItemDTO() {}
 
@@ -36,4 +38,7 @@ public class ItemDTO {
 
     public LocalDate getCreatedDate() { return createdDate; }
     public void setCreatedDate(LocalDate createdDate) { this.createdDate = createdDate; }
+
+    public ItemStatus getStatus() { return status; }
+    public void setStatus(ItemStatus status) { this.status = status; }
 }

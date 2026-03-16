@@ -33,17 +33,15 @@ public class ItemMapper {
     }
 
     public ItemDTO toDTO(Item item) {
-
         ItemDTO dto = new ItemDTO();
-
         dto.setId(item.getId());
         dto.setName(item.getName());
         dto.setType(item.getType());
+        dto.setStatus(item.getStatus());
         dto.setDamage(item.getDamage());
         dto.setWeight(item.getWeight());
         dto.setPrice(item.getPrice());
         dto.setCreatedDate(item.getCreatedDate());
-
         return dto;
     }
 }
