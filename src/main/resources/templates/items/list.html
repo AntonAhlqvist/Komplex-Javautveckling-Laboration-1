@@ -39,6 +39,7 @@
         <th>Skada</th>
         <th>Vikt</th>
         <th>Pris</th>
+        <th>Skapad</th>
     </tr>
     </thead>
 
@@ -49,6 +50,7 @@
         <td th:text="${item.damage}"></td>
         <td th:text="${item.weight}"></td>
         <td th:text="${item.price}"></td>
+        <td th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
     </tr>
     </tbody>
 </table>
@@ -65,6 +67,7 @@
         <th>Skada</th>
         <th>Vikt</th>
         <th>Pris</th>
+        <th>Skapad</th>
     </tr>
     </thead>
 
@@ -75,6 +78,7 @@
         <td th:text="${item.damage}"></td>
         <td th:text="${item.weight}"></td>
         <td th:text="${item.price}"></td>
+        <td th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
     </tr>
     </tbody>
 </table>

@@ -5,7 +5,7 @@ import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 public class ItemMapper {
@@ -19,7 +19,7 @@ public class ItemMapper {
         item.setDamage(dto.getDamage());
         item.setWeight(dto.getWeight());
 
-        item.setCreatedDate(LocalDate.now());
+        item.setCreatedDate(LocalDateTime.now());
 
         return item;
     }

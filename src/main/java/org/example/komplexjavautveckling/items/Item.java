@@ -8,7 +8,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 public class Item {
@@ -33,7 +33,7 @@ public class Item {
     @PositiveOrZero
     private int price;
 
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public class Item {
                 int damage,
                 double weight,
                 int price,
-                LocalDate createdDate,
+                LocalDateTime createdDate,
                 ItemStatus status,
                 boolean createdByUser) {
 
@@ -104,11 +104,11 @@ public class Item {
         this.price = price;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
