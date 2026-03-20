@@ -2,16 +2,12 @@ package org.example.komplexjavautveckling.items;
 
 import jakarta.validation.Valid;
 import org.example.komplexjavautveckling.items.dto.CreateItemDTO;
-import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
-import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/items")
@@ -26,13 +22,19 @@ public class ItemController {
     /**
      * Displays the forge page where the user can create new weapons.
      * Only weapon types that are allowed in the forge are shown in the dropdown.
-     * This prevents items such as armor, potions, and jewelry from being selected.
+     * The forge items are displayed with pagination, five items per page.
      */
     @GetMapping("/new")
-    public String showCreateForm(Model model) {
+    public String showCreateForm(
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+
+        var forgePage = service.getForgeItemsPaged(page, 5);
 
         model.addAttribute("createItemDTO", new CreateItemDTO());
-        model.addAttribute("items", service.getForgeItems());
+        model.addAttribute("items", forgePage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", forgePage.getTotalPages());
 
         model.addAttribute("weaponTypes",
                 java.util.Arrays.stream(ItemType.values())
@@ -40,14 +42,14 @@ public class ItemController {
                         .toList()
         );
 
-        return "items/create";
+        return "items/forge";
     }
 
     /**
      * Handles the creation of a new item from the forge form.
-     * If there are validation errors, the form is shown again with the
-     * allowed weapon types and the existing forge items.
-     * If the input is valid, the item is saved and the user is redirected
+     * If validation fails, the forge page is shown again with the allowed
+     * weapon types and the first page of existing forge items.
+     * If the input is valid, the item is created and the user is redirected
      * back to the forge page.
      */
     @PostMapping("/new")
@@ -58,7 +60,11 @@ public class ItemController {
 
         if (result.hasErrors()) {
 
-            model.addAttribute("items", service.getForgeItems());
+            var forgePage = service.getForgeItemsPaged(0, 5);
+
+            model.addAttribute("items", forgePage.getContent());
+            model.addAttribute("currentPage", 0);
+            model.addAttribute("totalPages", forgePage.getTotalPages());
 
             model.addAttribute("weaponTypes",
                     java.util.Arrays.stream(ItemType.values())
@@ -66,7 +72,7 @@ public class ItemController {
                             .toList()
             );
 
-            return "items/create";
+            return "items/forge";
         }
 
         service.createItem(dto);
@@ -98,7 +104,7 @@ public class ItemController {
                         .toList()
         );
 
-        return "items/edit";
+        return "items/items-edit";
     }
 
     /**
@@ -121,7 +127,7 @@ public class ItemController {
                             .filter(ItemType::isForgeWeapon)
                             .toList()
             );
-            return "items/edit";
+            return "items/items-edit";
         }
 
         service.updateItem(id, dto);
@@ -138,30 +144,24 @@ public class ItemController {
     }
 
     /**
-     * Displays the list page with all items.
-     * The items can optionally be filtered by type.
-     * The results are separated into forge items and shop items
-     * so they are shown in two different lists.
+     * Displays the shop page.
+     * Shop items can optionally be filtered by type and are shown
+     * with pagination, five items per page.
      */
     @GetMapping
     public String listItems(
             @RequestParam(required = false) ItemType type,
+            @RequestParam(defaultValue = "0") int page,
             Model model) {
 
-        List<ItemDTO> allItems = service.search(type);
+        var shopPage = service.getShopItemsPaged(type, page, 5);
 
-        List<ItemDTO> forgeItems = allItems.stream()
-                .filter(item -> item.getStatus() == ItemStatus.FORGE)
-                .toList();
-
-        List<ItemDTO> shopItems = allItems.stream()
-                .filter(item -> item.getStatus() == ItemStatus.SHOP)
-                .toList();
-
-        model.addAttribute("forgeItems", forgeItems);
-        model.addAttribute("shopItems", shopItems);
+        model.addAttribute("shopItems", shopPage.getContent());
+        model.addAttribute("selectedType", type);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", shopPage.getTotalPages());
         model.addAttribute("weaponTypes", ItemType.values());
 
-        return "items/list";
+        return "items/shop";
     }
 }
