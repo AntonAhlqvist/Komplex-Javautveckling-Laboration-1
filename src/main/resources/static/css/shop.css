@@ -1,0 +1,209 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.shop-page {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    background-image: url('/images/background-shop.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #6d3d95;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000;
+}
+
+.shop-overlay {
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.20);
+    padding: 40px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.shop-layout {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.shop-panel {
+    width: 100%;
+    max-width: 1000px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+h1, h2, label, th, td, a, button {
+    color: #6d3d95;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow:
+            0 0 12px rgba(160, 32, 240, 0.8),
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px  2px 0 #000,
+            2px  2px 0 #000;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000;
+}
+
+.shop-intro {
+    max-width: 900px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    text-align: center;
+    color: #6d3d95;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0 auto 30px auto;
+
+    text-shadow:
+            0 0 12px rgba(160, 32, 240, 0.7),
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px  2px 0 #000,
+            2px  2px 0 #000;
+}
+
+.shop-top-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.shop-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+}
+
+.shop-form label {
+    font-size: 1rem;
+    letter-spacing: 1px;
+    color: #d8a8ff;
+}
+
+.shop-form select,
+.shop-form input {
+    width: 320px;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    border: 2px solid #6d3d95;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #d8a8ff;
+    text-shadow: none;
+    outline: none;
+}
+
+.shop-form select:focus,
+.shop-form input:focus {
+    border-color: #a020f0;
+    box-shadow: 0 0 12px rgba(160, 32, 240, 0.6);
+}
+
+.shop-btn {
+    display: inline-block;
+    width: 320px;
+    max-width: 100%;
+    padding: 12px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.7);
+    color: #d8a8ff;
+    border: 2px solid #6d3d95;
+    border-radius: 10px;
+    cursor: pointer;
+    text-shadow: none;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.shop-btn:hover,
+.shop-btn:focus {
+    border-color: #a020f0;
+    box-shadow: 0 0 12px rgba(160, 32, 240, 0.6);
+    transform: translateY(-1px);
+}
+
+.shop-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.shop-table th,
+.shop-table td {
+    border: 1px solid rgba(109, 61, 149, 0.5);
+    padding: 12px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.35);
+    color: #d8a8ff;
+}
+
+.shop-table th {
+    background: rgba(109, 61, 149, 0.18);
+}
+
+.shop-section {
+    margin-bottom: 20px;
+}
+
+.shop-actions {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.shop-pagination {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.shop-pagination span {
+    color: #d8a8ff;
+    font-size: 1rem;
+}
