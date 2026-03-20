@@ -2,15 +2,13 @@ package org.example.komplexjavautveckling.items;
 
 import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
-import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+public interface ItemRepository extends JpaRepository<Item, Long> {
 
-public interface ItemRepository extends ListCrudRepository<Item, Long> {
+    Page<Item> findByStatus(ItemStatus status, Pageable pageable);
 
-    List<Item> findByType(ItemType type);
-
-    List<Item> findByNameContainingIgnoreCase(String name);
-
-    List<Item> findByStatus(ItemStatus status);
+    Page<Item> findByStatusAndType(ItemStatus status, ItemType type, Pageable pageable);
 }
