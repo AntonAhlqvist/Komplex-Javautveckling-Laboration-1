@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="sv">
 <head>
     <meta charset="UTF-8">
     <title>Skapa karaktär</title>
+    <link rel="stylesheet" th:href="@{/css/create-character.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styling.css}">
 </head>
-<body>
+<body class="character-page">
 
-<h1>Skapa karaktär</h1>
+<div class="page-overlay">
+    <div class="character-container">
+        <h1>Skapa karaktär</h1>
 
-<form th:action="@{/characters/create}" th:object="${character}" method="post">
+        <form th:action="@{/characters/create}" th:object="${character}" method="post" class="character-form">
 
-    <label for="name">Namn:</label><br>
-    <input type="text" id="name" th:field="*{name}" placeholder="Skriv ditt namn" required><br><br>
+            <input type="text" id="name" th:field="*{name}" placeholder="Skriv ditt namn" required>
 
-    <p>Välj din klass:</p>
-    <div th:each="c : ${classes}">
-        <input type="radio" th:field="*{characterClass}" th:value="${c.name}" id="${c.name}" required>
-        <label th:for="${c.name}" th:text="${c.displayName}"></label><br>
+            <div class="class-grid">
+                <div class="class-option" th:each="c : ${classes}">
+                    <input type="radio"
+                           th:field="*{characterClass}"
+                           th:value="${c.name()}"
+                           th:id="${c.name()}"
+                           required>
+
+                    <label th:for="${c.name()}" class="class-card">
+                        <div class="card-image-wrapper">
+                            <img class="card-face card-front"
+                                 th:src="@{'/images/' + ${#strings.toLowerCase(c.name())} + '.png'}"
+                                 th:alt="${c.displayName} + ' framsida'">
+
+                            <img class="card-face card-back"
+                                 th:src="@{'/images/' + ${#strings.toLowerCase(c.name())} + '-back.png'}"
+                                 th:alt="${c.displayName} + ' baksida'">
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="create-btn">Skapa karaktär</button>
+        </form>
     </div>
-
-    <br>
-    <button type="submit">Skapa karaktär</button>
-
-</form>
+</div>
 
 </body>
 </html>
