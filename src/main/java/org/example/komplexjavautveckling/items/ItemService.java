@@ -5,9 +5,10 @@ import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
 import org.example.komplexjavautveckling.items.enums.ItemStatus;
 import org.example.komplexjavautveckling.items.enums.ItemType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Service layer for managing items in the application.
@@ -75,32 +76,28 @@ public class ItemService {
         return mapper.toDTO(item);
     }
 
-    public List<ItemDTO> getForgeItems() {
-        return repository.findByStatus(ItemStatus.FORGE)
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
+    public Page<ItemDTO> getForgeItemsPaged(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return repository.findByStatus(ItemStatus.FORGE, pageable)
+                .map(mapper::toDTO);
     }
 
-    public List<ItemDTO> getShopItems() {
-        return repository.findByStatus(ItemStatus.SHOP)
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
+    public Page<ItemDTO> getShopItemsPaged(ItemType type, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (type == null) {
+            return repository.findByStatus(ItemStatus.SHOP, pageable)
+                    .map(mapper::toDTO);
+        }
+
+        return repository.findByStatusAndType(ItemStatus.SHOP, type, pageable)
+                .map(mapper::toDTO);
     }
 
     public Item getEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Föremålet hittades inte"));
-    }
-
-    public List<ItemDTO> search(ItemType type) {
-
-        return repository.findAll()
-                .stream()
-                .filter(item -> type == null || item.getType() == type)
-                .map(mapper::toDTO)
-                .toList();
     }
 
     public void deleteItem(Long id) {
