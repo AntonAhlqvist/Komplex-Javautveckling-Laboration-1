@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Affären</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/shop.css}">
+</head>
+<body class="shop-page">
+
+<div class="shop-overlay">
+    <div class="shop-layout">
+
+        <div class="shop-panel">
+            <h1>Affären</h1>
+
+            <div class="shop-top-actions">
+                <a th:href="@{/items/new}" class="shop-btn">Skapa nytt föremål</a>
+            </div>
+
+            <h2>Filtrera föremål</h2>
+
+            <form th:action="@{/items}" method="get" class="shop-form">
+                <label for="type">Typ:</label>
+                <select name="type" id="type">
+                    <option value="">Alla</option>
+                    <option th:each="t : ${weaponTypes}"
+                            th:value="${t}"
+                            th:text="${t.displayName}"
+                            th:selected="${t == selectedType}">
+                    </option>
+                </select>
+
+                <button type="submit" class="shop-btn">Filtrera</button>
+            </form>
+        </div>
+
+        <div class="shop-panel shop-section">
+            <h2>Föremål i affären</h2>
+
+            <table class="shop-table">
+                <thead>
+                <tr>
+                    <th>Namn</th>
+                    <th>Typ</th>
+                    <th>Skada</th>
+                    <th>Vikt</th>
+                    <th>Pris</th>
+                    <th>Skapad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${shopItems}">
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.type.displayName}"></td>
+                    <td th:text="${item.damage}"></td>
+                    <td th:text="${item.weight}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(shopItems)}">
+                    <td colspan="6">Inga föremål hittades.</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="shop-pagination" th:if="${totalPages > 1}">
+                <a class="shop-btn"
+                   th:if="${currentPage > 0}"
+                   th:href="@{/items(page=${currentPage - 1}, type=${selectedType})}">
+                    Föregående
+                </a>
+
+                <span>
+                    Sida <span th:text="${currentPage + 1}"></span>
+                    av
+                    <span th:text="${totalPages}"></span>
+                </span>
+
+                <a class="shop-btn"
+                   th:if="${currentPage + 1 < totalPages}"
+                   th:href="@{/items(page=${currentPage + 1}, type=${selectedType})}">
+                    Nästa
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
