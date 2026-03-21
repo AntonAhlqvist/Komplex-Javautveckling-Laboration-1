@@ -33,6 +33,22 @@
                     </option>
                 </select>
 
+                <label for="sortBy">Sortera efter:</label>
+                <select name="sortBy" id="sortBy">
+                    <option value="">Standard</option>
+                    <option value="name" th:selected="${selectedSortBy == 'name'}">Namn</option>
+                    <option value="damage" th:selected="${selectedSortBy == 'damage'}">Skada</option>
+                    <option value="weight" th:selected="${selectedSortBy == 'weight'}">Vikt</option>
+                    <option value="price" th:selected="${selectedSortBy == 'price'}">Pris</option>
+                    <option value="createdDate" th:selected="${selectedSortBy == 'createdDate'}">Skapad tid</option>
+                </select>
+
+                <label for="direction">Ordning:</label>
+                <select name="direction" id="direction">
+                    <option value="asc" th:selected="${selectedDirection == 'asc'}">Stigande</option>
+                    <option value="desc" th:selected="${selectedDirection == 'desc'}">Fallande</option>
+                </select>
+
                 <button type="submit" class="shop-btn">Filtrera</button>
             </form>
         </div>
@@ -69,7 +85,7 @@
             <div class="shop-pagination" th:if="${totalPages > 1}">
                 <a class="shop-btn"
                    th:if="${currentPage > 0}"
-                   th:href="@{/items(page=${currentPage - 1}, type=${selectedType})}">
+                   th:href="@{/items(page=${currentPage - 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
                     Föregående
                 </a>
 
@@ -81,7 +97,7 @@
 
                 <a class="shop-btn"
                    th:if="${currentPage + 1 < totalPages}"
-                   th:href="@{/items(page=${currentPage + 1}, type=${selectedType})}">
+                   th:href="@{/items(page=${currentPage + 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
                     Nästa
                 </a>
             </div>

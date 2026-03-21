@@ -80,6 +80,12 @@ public class ItemController {
         return "redirect:/items/new";
     }
 
+    @PostMapping("/ship")
+    public String shipItemsToShop() {
+        service.shipForgeItemsToShop();
+        return "redirect:/items";
+    }
+
     /**
      * Displays the edit page for an existing item.
      * The form is filled with the current item data.
@@ -152,15 +158,20 @@ public class ItemController {
     public String listItems(
             @RequestParam(required = false) ItemType type,
             @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String direction,
             Model model) {
 
-        var shopPage = service.getShopItemsPaged(type, page, 5);
+        var shopPage = service.getShopItemsPaged(type, page, 5, sortBy, direction);
 
         model.addAttribute("shopItems", shopPage.getContent());
         model.addAttribute("selectedType", type);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", shopPage.getTotalPages());
         model.addAttribute("weaponTypes", ItemType.values());
+
+        model.addAttribute("selectedSortBy", sortBy);
+        model.addAttribute("selectedDirection", direction);
 
         return "items/shop";
     }

@@ -8,6 +8,7 @@ import org.example.komplexjavautveckling.items.enums.ItemType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -76,15 +77,31 @@ public class ItemService {
         return mapper.toDTO(item);
     }
 
+    public void shipForgeItemsToShop() {
+        var forgeItems = repository.findByStatusAndCreatedByUser(ItemStatus.FORGE, true);
+
+        for (Item item : forgeItems) {
+            item.setStatus(ItemStatus.SHOP);
+        }
+
+        repository.saveAll(forgeItems);
+    }
+
     public Page<ItemDTO> getForgeItemsPaged(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        return repository.findByStatus(ItemStatus.FORGE, pageable)
+        return repository.findByCreatedByUser(true, pageable)
                 .map(mapper::toDTO);
     }
 
-    public Page<ItemDTO> getShopItemsPaged(ItemType type, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<ItemDTO> getShopItemsPaged(ItemType type,
+                                           int page,
+                                           int size,
+                                           String sortBy,
+                                           String direction) {
+
+        Sort sort = buildSort(sortBy, direction);
+        Pageable pageable = PageRequest.of(page, size, sort);
 
         if (type == null) {
             return repository.findByStatus(ItemStatus.SHOP, pageable)
@@ -93,6 +110,28 @@ public class ItemService {
 
         return repository.findByStatusAndType(ItemStatus.SHOP, type, pageable)
                 .map(mapper::toDTO);
+    }
+
+    private Sort buildSort(String sortBy, String direction) {
+
+        if (sortBy == null || sortBy.isBlank()) {
+            return Sort.by("type").ascending()
+                    .and(Sort.by("price").ascending());
+        }
+
+        Sort.Direction dir = "desc".equalsIgnoreCase(direction)
+                ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+
+        return switch (sortBy) {
+            case "name" -> Sort.by(dir, "name");
+            case "damage" -> Sort.by(dir, "damage");
+            case "weight" -> Sort.by(dir, "weight");
+            case "price" -> Sort.by(dir, "price");
+            case "createdDate" -> Sort.by(dir, "createdDate");
+            default -> Sort.by("type").ascending()
+                    .and(Sort.by("price").ascending());
+        };
     }
 
     public Item getEntityById(Long id) {

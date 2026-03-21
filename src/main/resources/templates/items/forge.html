@@ -104,9 +104,11 @@
             </div>
 
             <div class="forge-actions">
-                <a th:href="@{/items}" class="forge-btn secondary-btn">
-                    Skeppa dina skapade föremål till affären
-                </a>
+                <form th:action="@{/items/ship}" method="post">
+                    <button type="submit" class="forge-btn secondary-btn">
+                        Skeppa dina skapade föremål till affären
+                    </button>
+                </form>
 
                 <a th:href="@{/characters/create}" class="forge-btn secondary-btn">
                     Tillbaka till karaktärsskaparen
