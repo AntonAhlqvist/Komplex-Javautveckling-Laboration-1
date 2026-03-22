@@ -1,17 +1,19 @@
 package org.example.komplexjavautveckling.characters;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class CharacterViewController {
+public class CharacterController {
 
     private final CharacterService characterService;
 
-    public CharacterViewController(CharacterService characterService) {
+    public CharacterController(CharacterService characterService) {
         this.characterService = characterService;
     }
 
@@ -28,7 +30,16 @@ public class CharacterViewController {
     }
 
     @PostMapping("/characters/create")
-    public String createCharacter(@ModelAttribute CreateCharacterDTO characterDto) {
+    public String createCharacter(
+            @Valid @ModelAttribute("character") CreateCharacterDTO characterDto,
+            BindingResult result,
+            Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("classes", characterService.getClasses());
+            return "create-character";
+        }
+
         characterService.createCharacter(characterDto);
         return "redirect:/items/new";
     }
