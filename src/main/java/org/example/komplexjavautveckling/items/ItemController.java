@@ -149,11 +149,9 @@ public class ItemController {
         return "redirect:/items/new";
     }
 
-    @GetMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteItem(@PathVariable Long id) {
-
         service.deleteItem(id);
-
         return "redirect:/items/new";
     }
 

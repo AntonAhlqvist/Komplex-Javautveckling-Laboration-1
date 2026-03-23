@@ -244,6 +244,32 @@ h2 {
     max-width: none;
 }
 
+.forge-table .link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: #d8a8ff;
+    text-decoration: none;
+    cursor: pointer;
+    text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000;
+}
+
+.forge-table .link-button:hover {
+    color: #d8a8ff;
+    text-shadow:
+            0 0 10px rgba(160, 32, 240, 0.8),
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px  1px 0 #000,
+            1px  1px 0 #000;
+}
+
 .forge-error-message {
     margin-bottom: 10px;
     color: #ff0000;

@@ -106,10 +106,15 @@
                             <td>
                                 <a th:href="@{/items/edit/{id}(id=${item.id})}">Uppdatera</a>
                                 |
-                                <a th:href="@{/items/delete/{id}(id=${item.id})}"
-                                   onclick="return confirm('Vill du verkligen ta bort detta föremål?');">
-                                    Ta bort
-                                </a>
+                                <form th:action="@{/items/delete/{id}(id=${item.id})}"
+                                      method="post"
+                                      style="display:inline;">
+                                    <button type="submit"
+                                            class="link-button"
+                                            onclick="return confirm('Vill du verkligen ta bort detta föremål?');">
+                                        Ta bort
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         </tbody>
