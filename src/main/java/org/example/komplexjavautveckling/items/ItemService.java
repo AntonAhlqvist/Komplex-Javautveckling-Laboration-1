@@ -79,6 +79,21 @@ public class ItemService {
         return mapper.toDTO(item);
     }
 
+    /**
+     * Ships all user-created forge items to the shop.
+     * <p>
+     * Design decision:
+     * The player only needs to create at least one item once in order to unlock
+     * access to the shop flow. After the first successful creation/shipment flow,
+     * later attempts to "ship" are allowed even if there are no remaining items
+     * with FORGE status.
+     * <p>
+     * This is intentional. User-created items are still shown in the forge view,
+     * and the "ship" action can be used again to continue to the shop.
+     * <p>
+     * Throws CannotShipEmptyForgeException only if the user has never created
+     * any item at all.
+     */
     public void shipForgeItemsToShop() {
         var forgeItems = repository.findByStatusAndCreatedByUser(ItemStatus.FORGE, true);
 
