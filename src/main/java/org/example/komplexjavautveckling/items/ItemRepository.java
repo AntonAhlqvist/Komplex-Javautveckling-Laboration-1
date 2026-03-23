@@ -17,4 +17,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByStatusAndCreatedByUser(ItemStatus status, boolean createdByUser);
 
     Page<Item> findByCreatedByUser(boolean createdByUser, Pageable pageable);
+
+    boolean existsByCreatedByUser(boolean createdByUser);
 }
