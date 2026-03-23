@@ -1,5 +1,7 @@
 package org.example.komplexjavautveckling.items;
 
+import org.example.komplexjavautveckling.exceptions.CannotShipEmptyForgeException;
+import org.example.komplexjavautveckling.exceptions.ResourceNotFoundException;
 import org.example.komplexjavautveckling.items.dto.CreateItemDTO;
 import org.example.komplexjavautveckling.items.dto.ItemDTO;
 import org.example.komplexjavautveckling.items.dto.UpdateItemDTO;
@@ -65,7 +67,7 @@ public class ItemService {
     public ItemDTO updateItem(Long id, UpdateItemDTO dto) {
 
         Item item = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Föremålet hittades inte"));
+                .orElseThrow(() -> new ResourceNotFoundException("Föremålet hittades inte"));
 
         mapper.updateEntity(item, dto);
 
@@ -79,6 +81,18 @@ public class ItemService {
 
     public void shipForgeItemsToShop() {
         var forgeItems = repository.findByStatusAndCreatedByUser(ItemStatus.FORGE, true);
+
+        if (forgeItems.isEmpty()) {
+            boolean hasCreatedAnyItem = repository.existsByCreatedByUser(true);
+
+            if (!hasCreatedAnyItem) {
+                throw new CannotShipEmptyForgeException(
+                        "Du måste skapa minst ett föremål innan du kan skeppa till affären"
+                );
+            }
+
+            return;
+        }
 
         for (Item item : forgeItems) {
             item.setStatus(ItemStatus.SHOP);
@@ -136,7 +150,7 @@ public class ItemService {
 
     public Item getEntityById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Föremålet hittades inte"));
+                .orElseThrow(() -> new ResourceNotFoundException("Föremålet hittades inte"));
     }
 
     public void deleteItem(Long id) {

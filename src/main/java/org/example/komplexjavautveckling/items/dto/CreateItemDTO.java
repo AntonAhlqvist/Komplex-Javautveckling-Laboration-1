@@ -1,9 +1,6 @@
 package org.example.komplexjavautveckling.items.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import org.example.komplexjavautveckling.items.enums.ItemType;
 
 public class CreateItemDTO {
@@ -14,11 +11,13 @@ public class CreateItemDTO {
     @NotNull(message = "Föremålstyp krävs")
     private ItemType type;
 
-    @PositiveOrZero(message = "Skada måste vara positiv eller noll")
-    private int damage;
+    @NotNull(message = "Skada krävs")
+    @Min(value = 1, message = "Skada måste vara minst 1")
+    private Integer damage;
 
-    @Positive(message = "Vikt måste vara positiv")
-    private double weight;
+    @NotNull(message = "Vikt krävs")
+    @DecimalMin(value = "0.1", message = "Vikt måste vara minst 0.1")
+    private Double weight;
 
     public CreateItemDTO() {
     }
@@ -39,19 +38,11 @@ public class CreateItemDTO {
         this.type = type;
     }
 
-    public int getDamage() {
-        return damage;
-    }
+    public Integer getDamage() { return damage; }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
+    public void setDamage(Integer damage) { this.damage = damage; }
 
-    public double getWeight() {
-        return weight;
-    }
+    public Double getWeight() { return weight; }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
+    public void setWeight(Double weight) { this.weight = weight; }
 }

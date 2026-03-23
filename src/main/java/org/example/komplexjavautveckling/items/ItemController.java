@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.example.komplexjavautveckling.exceptions.CannotShipEmptyForgeException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/items")
@@ -29,7 +31,7 @@ public class ItemController {
             @RequestParam(defaultValue = "0") int page,
             Model model) {
 
-        var forgePage = service.getForgeItemsPaged(page, 5);
+        var forgePage = service.getForgeItemsPaged(page, 10);
 
         model.addAttribute("createItemDTO", new CreateItemDTO());
         model.addAttribute("items", forgePage.getContent());
@@ -60,7 +62,7 @@ public class ItemController {
 
         if (result.hasErrors()) {
 
-            var forgePage = service.getForgeItemsPaged(0, 5);
+            var forgePage = service.getForgeItemsPaged(0, 10);
 
             model.addAttribute("items", forgePage.getContent());
             model.addAttribute("currentPage", 0);
@@ -81,9 +83,14 @@ public class ItemController {
     }
 
     @PostMapping("/ship")
-    public String shipItemsToShop() {
-        service.shipForgeItemsToShop();
-        return "redirect:/items";
+    public String shipItemsToShop(RedirectAttributes redirectAttributes) {
+        try {
+            service.shipForgeItemsToShop();
+            return "redirect:/items";
+        } catch (CannotShipEmptyForgeException e) {
+            redirectAttributes.addFlashAttribute("shipError", e.getMessage());
+            return "redirect:/items/new";
+        }
     }
 
     /**
@@ -128,6 +135,7 @@ public class ItemController {
             Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("itemId", id);
             model.addAttribute("weaponTypes",
                     java.util.Arrays.stream(ItemType.values())
                             .filter(ItemType::isForgeWeapon)
@@ -162,7 +170,7 @@ public class ItemController {
             @RequestParam(required = false) String direction,
             Model model) {
 
-        var shopPage = service.getShopItemsPaged(type, page, 5, sortBy, direction);
+        var shopPage = service.getShopItemsPaged(type, page, 10, sortBy, direction);
 
         model.addAttribute("shopItems", shopPage.getContent());
         model.addAttribute("selectedType", type);
