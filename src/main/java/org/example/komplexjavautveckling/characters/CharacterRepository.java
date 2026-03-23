@@ -1,5 +1,6 @@
 package org.example.komplexjavautveckling.characters;
 
+import org.example.komplexjavautveckling.characters.enums.CharacterClass;
 import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;

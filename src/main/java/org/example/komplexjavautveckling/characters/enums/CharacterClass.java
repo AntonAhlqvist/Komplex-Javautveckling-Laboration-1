@@ -1,4 +1,4 @@
-package org.example.komplexjavautveckling.characters;
+package org.example.komplexjavautveckling.characters.enums;
 
 public enum CharacterClass {
 

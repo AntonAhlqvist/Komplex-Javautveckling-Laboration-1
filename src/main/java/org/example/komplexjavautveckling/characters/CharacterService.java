@@ -1,5 +1,8 @@
 package org.example.komplexjavautveckling.characters;
 
+import org.example.komplexjavautveckling.characters.dto.CharacterClassDTO;
+import org.example.komplexjavautveckling.characters.dto.CreateCharacterDTO;
+import org.example.komplexjavautveckling.characters.enums.CharacterClass;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

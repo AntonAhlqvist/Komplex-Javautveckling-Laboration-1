@@ -1,5 +1,6 @@
 package org.example.komplexjavautveckling.characters;
 
+import org.example.komplexjavautveckling.characters.dto.CreateCharacterDTO;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,7 @@
 package org.example.komplexjavautveckling.characters;
 
 import jakarta.validation.Valid;
+import org.example.komplexjavautveckling.characters.dto.CreateCharacterDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,7 +27,7 @@ public class CharacterController {
     public String showCreateForm(Model model) {
         model.addAttribute("character", new CreateCharacterDTO());
         model.addAttribute("classes", characterService.getClasses());
-        return "create-character";
+        return "characters/create-character";
     }
 
     @PostMapping("/characters/create")
@@ -37,21 +38,10 @@ public class CharacterController {
 
         if (result.hasErrors()) {
             model.addAttribute("classes", characterService.getClasses());
-            return "create-character";
+            return "characters/create-character";
         }
 
         characterService.createCharacter(characterDto);
         return "redirect:/items/new";
-    }
-
-    @GetMapping("/characters/next-step")
-    public String nextStep() {
-        return "next-step";
-    }
-
-    @GetMapping("/characters/classes")
-    public String showClasses(Model model) {
-        model.addAttribute("classes", characterService.getClasses());
-        return "classes";
     }
 }
