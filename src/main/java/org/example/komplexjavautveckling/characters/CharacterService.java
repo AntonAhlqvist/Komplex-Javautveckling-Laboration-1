@@ -9,15 +9,15 @@ import java.util.List;
 public class CharacterService {
 
     private final CharacterRepository repository;
+    private final CharacterMapper mapper;
 
-    public CharacterService(CharacterRepository repository) { this.repository = repository; }
+    public CharacterService(CharacterRepository repository, CharacterMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public Character createCharacter(CreateCharacterDTO dto) {
-        Character character = new Character(
-                dto.getName(),
-                dto.getCharacterClass()
-        );
-
+        Character character = mapper.toEntity(dto);
         return repository.save(character);
     }
 
