@@ -13,7 +13,9 @@
 
 <div class="page-overlay">
     <div class="character-container">
-        <h1>Skapa karaktär</h1>
+        <img th:src="@{/images/create-character-header.png}"
+             alt="Skapa karaktär"
+             class="title-image">
 
         <form th:action="@{/characters/create}" th:object="${character}" method="post" class="character-form">
 

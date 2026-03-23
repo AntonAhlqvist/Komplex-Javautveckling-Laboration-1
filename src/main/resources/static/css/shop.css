@@ -23,7 +23,7 @@ body.shop-page {
 .shop-overlay {
     min-height: 100vh;
     background: rgba(0, 0, 0, 0.20);
-    padding: 40px 30px;
+    padding: 0 30px 40px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -40,6 +40,7 @@ body.shop-page {
 .shop-panel {
     width: 100%;
     max-width: 1000px;
+    margin: 0 auto;
     padding: 0;
     background: transparent;
     border: none;
@@ -47,20 +48,15 @@ body.shop-page {
 }
 
 h1, h2, label, th, td, a, button {
-    color: #6d3d95;
+    color: #9951d5;
 }
 
-h1 {
-    font-size: 5rem;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-    text-align: center;
-    text-shadow:
-            0 0 12px rgba(160, 32, 240, 0.8),
-            -2px -2px 0 #000,
-            2px -2px 0 #000,
-            -2px  2px 0 #000,
-            2px  2px 0 #000;
+.shop-title-image {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 0 auto 10px auto;
 }
 
 h2 {
@@ -75,22 +71,21 @@ h2 {
 }
 
 .shop-intro {
+    width: 80%;
     max-width: 900px;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
-    line-height: 1.5;
-    text-align: center;
-    color: #6d3d95;
-    text-transform: none;
-    letter-spacing: 0;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 10px auto;
+    padding: 16px 20px;
 
-    text-shadow:
-            0 0 12px rgba(160, 32, 240, 0.7),
-            -2px -2px 0 #000,
-            2px -2px 0 #000,
-            -2px  2px 0 #000,
-            2px  2px 0 #000;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    line-height: 1.5;
+
+    text-align: center;
+
+    color: #d8a8ff;
+    border: 2px solid rgba(109, 61, 149, 0.7);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.55);
 }
 
 .shop-top-actions {
@@ -101,10 +96,18 @@ h2 {
 
 .shop-form {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
     margin-bottom: 30px;
+}
+
+.shop-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+    max-width: 100%;
 }
 
 .shop-form label {
@@ -206,4 +209,42 @@ h2 {
 .shop-pagination span {
     color: #d8a8ff;
     font-size: 1rem;
+}
+
+.shop-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+}
+
+.shop-filter-panel {
+    flex: 0 0 320px;
+}
+
+.shop-items-panel {
+    flex: 1;
+    min-width: 0;
+}
+
+.shop-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.shop-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 320px;
+    max-width: 100%;
+}
+
+.shop-actions {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start;
 }

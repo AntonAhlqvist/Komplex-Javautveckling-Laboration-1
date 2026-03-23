@@ -22,33 +22,27 @@ body.edit-page {
 .edit-overlay {
     min-height: 100vh;
     background: rgba(0, 0, 0, 0.20);
-    padding: 40px 30px;
+    padding: 0 30px 30px;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .edit-container {
     width: 100%;
-    max-width: 520px;
-    padding-right: 40px;
-
+    max-width: 700px;
+    padding-right: 0;
     background: transparent;
     border: none;
     box-shadow: none;
 }
 
-.edit-container h1 {
-    font-size: 4rem;
-    margin-bottom: 30px;
-    letter-spacing: 2px;
-
-    text-shadow:
-            0 0 12px rgba(160, 32, 240, 0.8),
-            -2px -2px 0 #000,
-            2px -2px 0 #000,
-            -2px  2px 0 #000,
-            2px  2px 0 #000;
+.edit-title-image {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 0 auto;
 }
 
 .edit-form {
@@ -84,7 +78,8 @@ body.edit-page {
     box-shadow: 0 0 12px rgba(160, 32, 240, 0.6);
 }
 
-.edit-btn {
+.edit-btn,
+.edit-back {
     display: inline-block;
     width: 320px;
     max-width: 100%;
@@ -106,21 +101,16 @@ body.edit-page {
 }
 
 .edit-btn:hover,
-.edit-btn:focus {
+.edit-btn:focus,
+.edit-back:hover,
+.edit-back:focus {
     border-color: #a020f0;
     box-shadow: 0 0 12px rgba(160, 32, 240, 0.6);
     transform: translateY(-1px);
 }
 
 .edit-back {
-    display: inline-block;
-    width: 320px;
-    max-width: 100%;
     margin-top: 16px;
-    text-align: center;
-    text-decoration: none;
-    color: #d8a8ff;
-    font-size: 1rem;
 }
 
 .edit-back:hover {
@@ -141,4 +131,29 @@ body.edit-page {
     .edit-container h1 {
         font-size: 2.8rem;
     }
+}
+
+.edit-form label,
+.edit-form input,
+.edit-form select,
+.edit-form option,
+.edit-btn,
+.edit-back,
+.edit-error-message {
+    text-transform: uppercase;
+}
+
+.edit-error-message {
+    margin-bottom: 10px;
+    color: #ff0000;
+    font-weight: 600;
+    text-align: center;
+}
+
+.edit-form .edit-error-message {
+    width: 320px;
+    max-width: 100%;
+    margin-top: -8px;
+    margin-bottom: 0;
+    text-align: center;
 }

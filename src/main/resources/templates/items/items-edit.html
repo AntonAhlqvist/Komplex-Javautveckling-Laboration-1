@@ -12,7 +12,9 @@
 <div class="edit-overlay">
     <div class="edit-container">
 
-        <h1>Förbättra föremål</h1>
+        <img th:src="@{/images/update-item-header.png}"
+             alt="Uppdatera föremål"
+             class="edit-title-image">
 
         <form th:action="@{/items/edit/{id}(id=${itemId})}"
               th:object="${updateItemDTO}"
@@ -21,6 +23,9 @@
 
             <label>Namn</label>
             <input type="text" th:field="*{name}" />
+            <p class="edit-error-message"
+               th:if="${#fields.hasErrors('name')}"
+               th:errors="*{name}"></p>
 
             <label>Typ</label>
             <select th:field="*{type}">
@@ -32,9 +37,15 @@
 
             <label>Skada</label>
             <input type="number" th:field="*{damage}" />
+            <p class="edit-error-message"
+               th:if="${#fields.hasErrors('damage')}"
+               th:errors="*{damage}"></p>
 
             <label>Vikt</label>
             <input type="number" step="0.1" th:field="*{weight}" />
+            <p class="edit-error-message"
+               th:if="${#fields.hasErrors('weight')}"
+               th:errors="*{weight}"></p>
 
             <button type="submit" class="edit-btn">Spara ändringar</button>
         </form>

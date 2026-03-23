@@ -14,93 +14,113 @@
     <div class="shop-layout">
 
         <div class="shop-panel">
-            <h1>Affären</h1>
+            <img th:src="@{/images/shop-header.png}"
+                 alt="Affären"
+                 class="shop-title-image">
 
-            <div class="shop-top-actions">
-                <a th:href="@{/items/new}" class="shop-btn">Skapa nytt föremål</a>
-            </div>
-
-            <h2>Filtrera föremål</h2>
-
-            <form th:action="@{/items}" method="get" class="shop-form">
-                <label for="type">Typ:</label>
-                <select name="type" id="type">
-                    <option value="">Alla</option>
-                    <option th:each="t : ${weaponTypes}"
-                            th:value="${t}"
-                            th:text="${t.displayName}"
-                            th:selected="${t == selectedType}">
-                    </option>
-                </select>
-
-                <label for="sortBy">Sortera efter:</label>
-                <select name="sortBy" id="sortBy">
-                    <option value="">Standard</option>
-                    <option value="name" th:selected="${selectedSortBy == 'name'}">Namn</option>
-                    <option value="damage" th:selected="${selectedSortBy == 'damage'}">Skada</option>
-                    <option value="weight" th:selected="${selectedSortBy == 'weight'}">Vikt</option>
-                    <option value="price" th:selected="${selectedSortBy == 'price'}">Pris</option>
-                    <option value="createdDate" th:selected="${selectedSortBy == 'createdDate'}">Skapad tid</option>
-                </select>
-
-                <label for="direction">Ordning:</label>
-                <select name="direction" id="direction">
-                    <option value="asc" th:selected="${selectedDirection == 'asc'}">Stigande</option>
-                    <option value="desc" th:selected="${selectedDirection == 'desc'}">Fallande</option>
-                </select>
-
-                <button type="submit" class="shop-btn">Filtrera</button>
-            </form>
+            <p class="shop-intro">
+                Åh nej, butiksbiträdet &quot;vabbar&quot; igen, du behöver verkligen köpa utrustning egentligen,
+                men du får kolla vad som finns så länge och hoppas att någon kommer snart.
+            </p>
         </div>
 
-        <div class="shop-panel shop-section">
-            <h2>Föremål i affären</h2>
+        <div class="shop-content">
 
-            <table class="shop-table">
-                <thead>
-                <tr>
-                    <th>Namn</th>
-                    <th>Typ</th>
-                    <th>Skada</th>
-                    <th>Vikt</th>
-                    <th>Pris</th>
-                    <th>Skapad</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item : ${shopItems}">
-                    <td th:text="${item.name}"></td>
-                    <td th:text="${item.type.displayName}"></td>
-                    <td th:text="${item.damage}"></td>
-                    <td th:text="${item.weight}"></td>
-                    <td th:text="${item.price}"></td>
-                    <td th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(shopItems)}">
-                    <td colspan="6">Inga föremål hittades.</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="shop-filter-panel">
+                <h2>Filtrera föremål</h2>
 
-            <div class="shop-pagination" th:if="${totalPages > 1}">
-                <a class="shop-btn"
-                   th:if="${currentPage > 0}"
-                   th:href="@{/items(page=${currentPage - 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
-                    Föregående
-                </a>
+                <form th:action="@{/items}" method="get" class="shop-form">
 
-                <span>
-                    Sida <span th:text="${currentPage + 1}"></span>
-                    av
-                    <span th:text="${totalPages}"></span>
-                </span>
+                    <div class="shop-form-group">
+                        <label for="type">Typ:</label>
+                        <select name="type" id="type">
+                            <option value="">Alla</option>
+                            <option th:each="t : ${weaponTypes}"
+                                    th:value="${t}"
+                                    th:text="${t.displayName}"
+                                    th:selected="${t == selectedType}">
+                            </option>
+                        </select>
+                    </div>
 
-                <a class="shop-btn"
-                   th:if="${currentPage + 1 < totalPages}"
-                   th:href="@{/items(page=${currentPage + 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
-                    Nästa
-                </a>
+                    <div class="shop-form-group">
+                        <label for="sortBy">Sortera efter:</label>
+                        <select name="sortBy" id="sortBy">
+                            <option value="">Standard</option>
+                            <option value="name" th:selected="${selectedSortBy == 'name'}">Namn</option>
+                            <option value="damage" th:selected="${selectedSortBy == 'damage'}">Skada</option>
+                            <option value="weight" th:selected="${selectedSortBy == 'weight'}">Vikt</option>
+                            <option value="price" th:selected="${selectedSortBy == 'price'}">Pris</option>
+                            <option value="createdDate" th:selected="${selectedSortBy == 'createdDate'}">Skapad tid</option>
+                        </select>
+                    </div>
+
+                    <div class="shop-form-group">
+                        <label for="direction">Ordning:</label>
+                        <select name="direction" id="direction">
+                            <option value="asc" th:selected="${selectedDirection == 'asc'}">Stigande</option>
+                            <option value="desc" th:selected="${selectedDirection == 'desc'}">Fallande</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="shop-btn">Filtrera</button>
+                </form>
             </div>
+
+            <div class="shop-items-panel">
+                <h2>Föremål i affären</h2>
+
+                <table class="shop-table">
+                    <thead>
+                    <tr>
+                        <th>Namn</th>
+                        <th>Typ</th>
+                        <th>Skada</th>
+                        <th>Vikt</th>
+                        <th>Pris</th>
+                        <th>Skapad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${shopItems}">
+                        <td th:text="${item.name}"></td>
+                        <td th:text="${item.type.displayName}"></td>
+                        <td th:text="${item.damage}"></td>
+                        <td th:text="${item.weight}"></td>
+                        <td th:text="${item.price}"></td>
+                        <td th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(shopItems)}">
+                        <td colspan="6">Inga föremål hittades.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="shop-pagination" th:if="${totalPages > 1}">
+                    <a class="shop-btn"
+                       th:if="${currentPage > 0}"
+                       th:href="@{/items(page=${currentPage - 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
+                        Föregående
+                    </a>
+
+                    <span>
+                        Sida <span th:text="${currentPage + 1}"></span>
+                        av
+                        <span th:text="${totalPages}"></span>
+                    </span>
+
+                    <a class="shop-btn"
+                       th:if="${currentPage + 1 < totalPages}"
+                       th:href="@{/items(page=${currentPage + 1}, type=${selectedType}, sortBy=${selectedSortBy}, direction=${selectedDirection})}">
+                        Nästa
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="shop-actions">
+            <a th:href="@{/items/new}" class="shop-btn">Tillbaka till smedjan</a>
         </div>
 
     </div>
